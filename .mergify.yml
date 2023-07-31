@@ -1,11 +1,11 @@
 queue_rules:
   - name: urgent
     merge_conditions:
-      - check-success=test_my_app/build_and_test
+      - "check-success=ci/circleci: build_and_test"
 
   - name: default
     merge_conditions:
-      - check-success=test_my_app/build_and_test
+      - "check-success=ci/circleci: build_and_test"
 
 pull_request_rules:
   - name: move to urgent queue when label urgent
@@ -19,7 +19,7 @@ pull_request_rules:
   - name: merge using the default queue after running the CI checks
     conditions:
       - base=main
-      - check-success=test_my_app/build_and_test
+      - "check-success=ci/circleci: build_and_test"
       - label!=urgent
     actions:
       queue:
